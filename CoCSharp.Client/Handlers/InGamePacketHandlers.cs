@@ -32,6 +32,12 @@ namespace CoCSharp.Client.Handlers
             Console.WriteLine();
         }
 
+        public static void HandleAllianceInfoResponsePacket(ICoCClient client, IPacket packet)
+        {
+            var allianceInfoResponsePacket = packet as AllianceInfoResponsePacket;
+            Console.WriteLine("Clan: {0}", allianceInfoResponsePacket.ClanName);
+        }
+
         public static void HandleServerErrorPacket(ICoCClient client, IPacket packet)
         {
             var errPacket = packet as ServerErrorPacket;
@@ -40,6 +46,7 @@ namespace CoCSharp.Client.Handlers
 
         public static void RegisterInGamePacketHandler(CoCClient client)
         {
+            client.RegisterDefaultPacketHandler(new AllianceInfoResponsePacket(), HandleAllianceInfoResponsePacket);
             client.RegisterDefaultPacketHandler(new ChatMessageServerPacket(), HandleChatMessageServerPacket);
             client.RegisterDefaultPacketHandler(new OwnHomeDataPacket(), HandleOwnHomeDataPacket);
             client.RegisterDefaultPacketHandler(new ServerErrorPacket(), HandleServerErrorPacket);
