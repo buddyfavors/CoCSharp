@@ -20,6 +20,7 @@ namespace CoCSharp.Networking
             m_PacketDictionary.Add(new ChangeAvatarNamePacket().ID, typeof(ChangeAvatarNamePacket)); // 10212
             m_PacketDictionary.Add(new VisitHomeRequestPacket().ID, typeof(VisitHomeRequestPacket)); // 14113
             m_PacketDictionary.Add(new BindFacebookAccountPacket().ID, typeof(BindFacebookAccountPacket)); // 14201
+            m_PacketDictionary.Add(new AllianceInfoRequestPacket().ID, typeof(AllianceInfoRequestPacket)); // 14302
             m_PacketDictionary.Add(new AllianceChatMessageClientPacket().ID, typeof(AllianceChatMessageClientPacket)); // 14315
             m_PacketDictionary.Add(new AvatarProfileRequestPacket().ID, typeof(AvatarProfileRequestPacket)); // 14325
             m_PacketDictionary.Add(new ChatMessageClientPacket().ID, typeof(ChatMessageClientPacket)); // 14715       
@@ -30,6 +31,7 @@ namespace CoCSharp.Networking
             m_PacketDictionary.Add(new KeepAliveResponsePacket().ID, typeof(KeepAliveResponsePacket)); // 20108
             m_PacketDictionary.Add(new OwnHomeDataPacket().ID, typeof(OwnHomeDataPacket)); // 24101
             m_PacketDictionary.Add(new VisitHomeResponsePacket().ID, typeof(VisitHomeResponsePacket)); // 24113
+            m_PacketDictionary.Add(new AllianceInfoResponsePacket().ID, typeof(AllianceInfoResponsePacket)); // 24301
             m_PacketDictionary.Add(new AllianceChatMessageServerPacket().ID, typeof(AllianceChatMessageServerPacket)); // 24312
             m_PacketDictionary.Add(new ChatMessageServerPacket().ID, typeof(ChatMessageServerPacket)); // 24715
         }
