@@ -40,11 +40,27 @@ namespace CoCSharp.Client
 
             while (true)
             {
-                var command = Console.ReadLine();
-                if (command[0] == '/')
-                    Console.WriteLine("TODO: Handle command.");
+                var input = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(input))
+                    continue;
+
+                if (input[0] == '/')
+                {
+                    var command = input.Substring(1).Split(' ');
+
+                    switch (command[0])
+                    {
+                        case "a":
+                            Client.SendPacket(new AllianceInfoRequestPacket()
+                            {
+                                ClanID = long.Parse(command[1])
+                            });
+                            break;
+                    }
+                }
                 else
-                    Client.SendChatMessage(command);
+                    Client.SendChatMessage(input);
             }
         }
 
@@ -61,7 +77,7 @@ namespace CoCSharp.Client
             {
                 Console.Write("<[");
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                Console.Write(e.ClanName);
+                Console.Write(e.ClanID);
                 Console.ResetColor();
                 Console.Write("][Lvl:{0}]", e.Packet.Level);
                 Console.WriteLine("{0}>: {1}", e.Username, e.Message);
