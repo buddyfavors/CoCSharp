@@ -11,11 +11,13 @@ namespace CoCSharp.Client.API.Events
             Message = packet.Message;
             Username = packet.Username;
             ClanName = packet.ClanName;
+            ClanID = packet.ClanID;
         }
 
         public ChatMessageServerPacket Packet { get; private set; }
         public string Message { get; private set; }
         public string Username { get; private set; }
         public string ClanName { get; private set; }
+        public long ClanID { get; private set; }
     }
 }
