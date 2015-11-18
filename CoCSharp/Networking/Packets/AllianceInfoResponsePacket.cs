@@ -8,29 +8,29 @@ namespace CoCSharp.Networking.Packets
 
         public long ClanID;
         public string ClanName;
-        public int Unknown1;
-        public int Unknown2;
+        internal int Unknown1;
+        internal int Unknown2;
         public int MembersCount;
         public int TotalPoints;
         public int RequiedTrophies;
         public int WarsWon;
         public int Level;
-        public int Unknown3;
+        internal int Unknown3;
         public int Sheild;
         public int WarFrequency;
-        public int Unknown4;
+        internal int Unknown4;
         public int ClanPerksPoints;
-        public int Unknown5;
+        internal int Unknown5;
         public string Description;
-        public int Unknown6;
-        public int Unknown7;
-        public int Unknown8;
-        public int Unknown9;
-        public int Unknown10;
-        public int Unknown11;
-        public byte Unknown12;
+        internal int Unknown6;
+        internal int Unknown7;
+        internal int Unknown8;
+        internal int Unknown9;
+        internal int Unknown10;
+        internal int Unknown11;
+        internal byte Unknown12;
         public List<AllianceMemberInfo> Members;
-        private byte LegacyMembersCount;
+        internal byte LegacyMembersCount;
 
         public void ReadPacket(PacketReader reader)
         {
@@ -147,7 +147,7 @@ namespace CoCSharp.Networking.Packets
             public byte NewMember;
             public int ClanWarPreference;
             public int ClanWarPreference1;
-            public int Unknown1;
+            internal int Unknown1;
             public long UserID1;
             internal int Unknown2;
             internal int Unknown3;
