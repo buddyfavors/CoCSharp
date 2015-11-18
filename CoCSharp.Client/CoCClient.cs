@@ -165,6 +165,13 @@ namespace CoCSharp.Client
         #endregion
 
         #region Events
+        public event EventHandler<AllianceInfoEventArgs> AllianceInfo;
+        protected internal virtual void OnAllianceInfo(AllianceInfoEventArgs e)
+        {
+            if (AllianceInfo != null)
+                AllianceInfo(this, e);
+        }
+
         public event EventHandler<ChatMessageEventArgs> ChatMessage;
         protected internal virtual void OnChatMessage(ChatMessageEventArgs e)
         {

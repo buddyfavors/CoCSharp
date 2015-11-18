@@ -35,7 +35,7 @@ namespace CoCSharp.Client.Handlers
         public static void HandleAllianceInfoResponsePacket(ICoCClient client, IPacket packet)
         {
             var allianceInfoResponsePacket = packet as AllianceInfoResponsePacket;
-            Console.WriteLine("Clan: {0}", allianceInfoResponsePacket.ClanName);
+            ((CoCClient)client).OnAllianceInfo(new AllianceInfoEventArgs(allianceInfoResponsePacket));
         }
 
         public static void HandleServerErrorPacket(ICoCClient client, IPacket packet)
