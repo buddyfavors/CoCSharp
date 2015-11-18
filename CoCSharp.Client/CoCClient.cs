@@ -106,6 +106,14 @@ namespace CoCSharp.Client
             KeepAliveManager.Start();
         }
 
+        public void SendAllianceInfoRequest(long clanID)
+        {
+            SendPacket(new AllianceInfoRequestPacket()
+            {
+                ClanID = clanID
+            });
+        }
+
         public void SendChatMessage(string message)
         {
             SendPacket(new ChatMessageClientPacket()
