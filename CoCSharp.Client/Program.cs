@@ -1,15 +1,18 @@
 ﻿using CoCSharp.Client.API.Events;
-using CoCSharp.Networking;
-using CoCSharp.Networking.Packets;
+using CoCSharp.Client.Services;
+using Ninject;
 using System;
 using System.Net;
+using System.Reflection;
 
 namespace CoCSharp.Client
 {
     public class Program
     {
+        public static IKernel Kernal { get; set; }
         public static CoCClient Client { get; set; }
         public static ClientConfiguration Configuration { get; set; }
+        public static IProxyService ProxyService { get; set; }
 
         public static void Main(string[] args)
         {
@@ -28,15 +31,26 @@ namespace CoCSharp.Client
             if (!TryGetIPAddress(args, out address))
                 return;
 
+            Kernal = new StandardKernel();
+            Kernal.Load(Assembly.GetExecutingAssembly());
+
+            Console.WriteLine("Starting proxy server...");
+            ProxyService = Kernal.Get<IProxyService>();
+            ProxyService.Start();
+
+            // TODO: Setup visitor design pattern so that 1 or more implementations can be notified of these events.
             Configuration = ClientConfiguration.LoadConfiguration("clientConfig.xml");
             Client = new CoCClient();
             Client.Login += OnLogin;
             Client.ChatMessage += OnChatMessage;
+            Client.AllianceInfo += ProxyService.OnAllianceInfo;
             Client.Avatar.ID = Configuration.UserID;
             Client.Avatar.Token = Configuration.UserToken;
 
             Console.WriteLine("Connecting to {0}:{1}...", address, port);
             Client.Connect(new IPEndPoint(address, port));
+
+            Console.WriteLine("Waiting for commands..");
 
             while (true)
             {
@@ -52,10 +66,7 @@ namespace CoCSharp.Client
                     switch (command[0])
                     {
                         case "a":
-                            Client.SendPacket(new AllianceInfoRequestPacket()
-                            {
-                                ClanID = long.Parse(command[1])
-                            });
+                            Client.SendAllianceInfoRequest(long.Parse(command[1]));
                             break;
                     }
                 }
