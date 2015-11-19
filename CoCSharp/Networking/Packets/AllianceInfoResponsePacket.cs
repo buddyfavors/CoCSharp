@@ -6,38 +6,52 @@ namespace CoCSharp.Networking.Packets
     {
         public ushort ID { get { return 0x5EED; } }
 
-        public long ClanID;
-        public string ClanName;
-        internal int Unknown1;
-        internal int Unknown2;
-        public int MembersCount;
-        public int TotalPoints;
-        public int RequiedTrophies;
-        public int WarsWon;
-        public int Level;
+        internal long ClanID;
+        internal string ClanName;
+        internal int MembersCount;
+        internal int TotalPoints;
+        internal int RequiedTrophies;
+        internal int WarsWon;
+        internal int Level;
+        internal WarFrequencies WarFrequency;
+        internal ClanTypes ClanType;
+        internal ushort ClanLocation;
+        internal int ClanPerksPoints;
+        internal string Description;
+        internal List<AllianceMemberInfo> Members;
+        internal byte LegacyMembersCount;
         internal int Unknown3;
-        public int Sheild;
-        public int WarFrequency;
         internal int Unknown4;
-        public int ClanPerksPoints;
         internal int Unknown5;
-        public string Description;
-        internal int Unknown6;
-        internal int Unknown7;
         internal int Unknown8;
         internal int Unknown9;
         internal int Unknown10;
         internal int Unknown11;
-        internal byte Unknown12;
-        public List<AllianceMemberInfo> Members;
-        internal byte LegacyMembersCount;
+        internal byte Unknown6543;
+        internal byte Unknown3214;
+        internal byte Unknown7861;
+        internal byte Unknown5167;
+        internal byte Unknown6451;
+        internal byte Unknown2314;
+        internal byte Unknown7865;
+        internal byte Unknown4567;
+        internal byte Unknown3247;
+        internal byte Unknown4657;
+        internal byte Unknown8974;
+        internal byte Unknown3217;
 
         public void ReadPacket(PacketReader reader)
         {
             ClanID = reader.ReadInt64();
             ClanName = reader.ReadString();
-            Unknown1 = reader.ReadInt32();
-            Unknown2 = reader.ReadInt32();
+            Unknown6451 = reader.ReadByte();
+            Unknown2314 = reader.ReadByte();
+            Unknown7865 = reader.ReadByte();
+            Unknown4567 = reader.ReadByte();
+            Unknown3247 = reader.ReadByte();
+            Unknown4657 = reader.ReadByte();
+            Unknown8974 = reader.ReadByte();
+            ClanType = (ClanTypes)reader.ReadByte();
             MembersCount = reader.ReadInt32();
             TotalPoints = reader.ReadInt32();
             RequiedTrophies = reader.ReadInt32();
@@ -45,8 +59,13 @@ namespace CoCSharp.Networking.Packets
             Unknown3 = reader.ReadInt32();
             Unknown4 = reader.ReadInt32();
             Unknown5 = reader.ReadInt32();
-            Unknown6 = reader.ReadInt32();
-            Unknown7 = reader.ReadInt32();
+            Unknown6543 = reader.ReadByte();
+            Unknown3214 = reader.ReadByte();
+            Unknown7861 = reader.ReadByte();
+            WarFrequency = (WarFrequencies)reader.ReadByte();
+            Unknown5167 = reader.ReadByte();
+            Unknown3217 = reader.ReadByte();
+            ClanLocation = reader.ReadUInt16();
             ClanPerksPoints = reader.ReadInt32();
             Level = reader.ReadInt32();
             Description = reader.ReadString();
@@ -92,22 +111,22 @@ namespace CoCSharp.Networking.Packets
         {
             writer.WriteInt64(ClanID);
             writer.WriteString(ClanName);
-            writer.WriteInt32(Unknown1);
-            writer.WriteInt32(Unknown2);
+            //writer.WriteInt32(Unknown1);
+            //writer.WriteInt32(Unknown2);
             writer.WriteInt32(MembersCount);
             writer.WriteInt32(TotalPoints);
             writer.WriteInt32(RequiedTrophies);
             writer.WriteInt32(WarsWon);
-            writer.WriteInt32(Unknown3);
+            //writer.WriteInt32(Unknown3);
             writer.WriteInt32(Level);
-            writer.WriteInt32(Sheild);
-            writer.WriteInt32(WarFrequency);
-            writer.WriteInt32(Unknown4);
+            //writer.WriteInt32(Sheild);
+            //writer.WriteInt32(WarFrequency);
+            //writer.WriteInt32(Unknown4);
             writer.WriteInt32(ClanPerksPoints);
-            writer.WriteInt32(Unknown5);
+            //writer.WriteInt32(Unknown5);
             writer.WriteString(Description);
-            writer.WriteInt32(Unknown6);
-            writer.WriteInt32(Unknown7);
+            //writer.WriteInt32(Unknown6);
+            //writer.WriteInt32(Unknown7);
 
             writer.WriteInt32(Members.Count);
             for (int i = 0; i < Members.Count; i++)
@@ -153,6 +172,22 @@ namespace CoCSharp.Networking.Packets
             internal int Unknown3;
             internal int Unknown4;
             internal int Unknown5;
+        }
+
+        public enum WarFrequencies : byte
+        {
+            Always = 1,
+            Twice = 2,
+            Once = 3,
+            Rarely = 4,
+            Never = 5
+        }
+
+        public enum ClanTypes : byte
+        {
+            Anyone = 1,
+            Closed = 2,
+            InviteOnly = 3
         }
     }
 }
