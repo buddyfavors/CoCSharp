@@ -12,6 +12,8 @@ namespace CoCSharp.Networking.Packets
         public int TotalPoints;
         public int RequiedTrophies;
         public int WarsWon;
+        public int WarsLost;
+        public int WarsDraw;
         public int Level;
         public WarFrequencies WarFrequency;
         public ClanTypes ClanType;
@@ -21,8 +23,6 @@ namespace CoCSharp.Networking.Packets
         public List<AllianceMemberInfo> Members;
         internal byte LegacyMembersCount;
         internal ushort ClanLocationValue;
-        internal int Unknown3;
-        internal int Unknown4;
         internal int Unknown5;
         internal int Unknown8;
         internal int Unknown9;
@@ -62,8 +62,8 @@ namespace CoCSharp.Networking.Packets
             TotalPoints = reader.ReadInt32();
             RequiedTrophies = reader.ReadInt32();
             WarsWon = reader.ReadInt32();
-            Unknown3 = reader.ReadInt32();
-            Unknown4 = reader.ReadInt32();
+            WarsLost = reader.ReadInt32();
+            WarsDraw = reader.ReadInt32();
             Unknown5 = reader.ReadInt32();
             Unknown6543 = reader.ReadByte();
             Unknown3214 = reader.ReadByte();
