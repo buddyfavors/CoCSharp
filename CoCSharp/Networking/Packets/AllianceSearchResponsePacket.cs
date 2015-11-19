@@ -20,7 +20,7 @@
                 info.Type = reader.ReadInt32();
                 info.MemberCount = reader.ReadInt32();
                 info.Trophies = reader.ReadInt32();
-                info.Unknown2 = reader.ReadInt32();
+                info.RequiedTrophies = reader.ReadInt32();
                 info.WarsWon = reader.ReadInt32();
                 info.WarsLost = reader.ReadInt32();
                 info.WarsDraw = reader.ReadInt32();
@@ -46,7 +46,7 @@
                 writer.WriteInt32(info.Type);
                 writer.WriteInt32(info.MemberCount);
                 writer.WriteInt32(info.Trophies);
-                writer.WriteInt32(info.Unknown2);
+                writer.WriteInt32(info.RequiedTrophies);
                 writer.WriteInt32(info.WarsWon);
                 writer.WriteInt32(info.WarsLost);
                 writer.WriteInt32(info.WarsDraw);
@@ -66,7 +66,7 @@
             public int Type { get; set; }
             public int MemberCount { get; set; }
             public int Trophies { get; set; }
-            public int Unknown2 { get; set; }
+            public int RequiedTrophies { get; set; }
             public int WarsWon { get; set; }
             public int WarsLost { get; set; }
             public int WarsDraw { get; set; }

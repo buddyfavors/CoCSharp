@@ -9,7 +9,7 @@ namespace CoCSharp.Networking.Packets
         public long ClanID;
         public string ClanName;
         public int MembersCount;
-        public int TotalPoints;
+        public int Trophies;
         public int RequiedTrophies;
         public int WarsWon;
         public int WarsLost;
@@ -32,11 +32,11 @@ namespace CoCSharp.Networking.Packets
         internal byte Unknown3214;
         internal byte Unknown7861;
         internal byte Unknown5167;
-        internal byte Unknown6451;
+        internal int Unknown6451;
         internal byte Unknown2314;
         internal byte Unknown7865;
         internal byte Unknown4567;
-        internal byte Unknown3247;
+        internal short Unknown3247;
         internal byte Unknown4657;
         internal byte Unknown8974;
         internal byte Unknown3217;
@@ -50,16 +50,12 @@ namespace CoCSharp.Networking.Packets
         {
             ClanID = reader.ReadInt64();
             ClanName = reader.ReadString();
-            Unknown6451 = reader.ReadByte();
-            Unknown2314 = reader.ReadByte();
-            Unknown7865 = reader.ReadByte();
-            Unknown4567 = reader.ReadByte();
-            Unknown3247 = reader.ReadByte();
-            Unknown4657 = reader.ReadByte();
+            Unknown6451 = reader.ReadInt32();
+            Unknown3247 = reader.ReadInt16();
             Unknown8974 = reader.ReadByte();
             ClanType = (ClanTypes)reader.ReadByte();
             MembersCount = reader.ReadInt32();
-            TotalPoints = reader.ReadInt32();
+            Trophies = reader.ReadInt32();
             RequiedTrophies = reader.ReadInt32();
             WarsWon = reader.ReadInt32();
             WarsLost = reader.ReadInt32();
@@ -121,7 +117,7 @@ namespace CoCSharp.Networking.Packets
             //writer.WriteInt32(Unknown1);
             //writer.WriteInt32(Unknown2);
             writer.WriteInt32(MembersCount);
-            writer.WriteInt32(TotalPoints);
+            writer.WriteInt32(Trophies);
             writer.WriteInt32(RequiedTrophies);
             writer.WriteInt32(WarsWon);
             //writer.WriteInt32(Unknown3);
@@ -179,22 +175,6 @@ namespace CoCSharp.Networking.Packets
             internal int Unknown3;
             internal int Unknown4;
             internal int Unknown5;
-        }
-
-        public enum WarFrequencies : byte
-        {
-            Always = 1,
-            Twice = 2,
-            Once = 3,
-            Rarely = 4,
-            Never = 5
-        }
-
-        public enum ClanTypes : byte
-        {
-            Anyone = 1,
-            Closed = 2,
-            InviteOnly = 3
         }
     }
 }
