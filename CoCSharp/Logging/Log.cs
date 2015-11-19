@@ -54,6 +54,9 @@ namespace CoCSharp.Logging
         /// save everytime after <see cref="LogData(object[])"/> is called.
         /// </summary>
         public virtual bool AutoSave { get; set; }
+        
+        private static object m_Locker = new object();
+
         /// <summary>
         /// Gets or sets whether the <see cref="LogBuilder"/> is going to
         /// log each block of logs to the console.
@@ -93,7 +96,10 @@ namespace CoCSharp.Logging
         /// </summary>
         public void Save()
         {
-            File.WriteAllText(Path, LogString);
+            lock (m_Locker)
+            {
+                File.WriteAllText(Path, LogString);
+            }
         }
 
         /// <summary>
@@ -101,7 +107,10 @@ namespace CoCSharp.Logging
         /// </summary>
         public void Save(string path)
         {
-            File.WriteAllText(path, LogString);
+            lock (m_Locker)
+            {
+                File.WriteAllText(path, LogString);
+            }
         }
 
         /// <summary>
