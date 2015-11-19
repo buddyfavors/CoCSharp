@@ -2,21 +2,12 @@
 
 namespace CoCSharp.Networking.Packets
 {
-    public class AllianceInfoResponsePacket : IPacket
+    public class AllianceInfoResponsePacket : BaseAllianceResponsePacket
     {
-        public ushort ID { get { return 0x5EED; } }
+        public override ushort ID { get { return 0x5EED; } }
 
-        public long ClanID;
-        public string ClanName;
-        public int MembersCount;
-        public int Trophies;
-        public int RequiedTrophies;
-        public int WarsWon;
-        public int WarsLost;
-        public int WarsDraw;
         public int Level;
         public WarFrequencies WarFrequency;
-        public ClanTypes ClanType;
         public string ClanLocation;
         public int ClanPerksPoints;
         public string Description;
@@ -32,13 +23,10 @@ namespace CoCSharp.Networking.Packets
         internal byte Unknown3214;
         internal byte Unknown7861;
         internal byte Unknown5167;
-        internal int Unknown6451;
         internal byte Unknown2314;
         internal byte Unknown7865;
         internal byte Unknown4567;
-        internal short Unknown3247;
         internal byte Unknown4657;
-        internal byte Unknown8974;
         internal byte Unknown3217;
 
         private Dictionary<ushort, string> ClanLocations = new Dictionary<ushort, string>()
@@ -46,20 +34,10 @@ namespace CoCSharp.Networking.Packets
             //{ 234, "" }
         };
 
-        public void ReadPacket(PacketReader reader)
+        public override void ReadPacket(PacketReader reader)
         {
-            ClanID = reader.ReadInt64();
-            ClanName = reader.ReadString();
-            Unknown6451 = reader.ReadInt32();
-            Unknown3247 = reader.ReadInt16();
-            Unknown8974 = reader.ReadByte();
-            ClanType = (ClanTypes)reader.ReadByte();
-            MembersCount = reader.ReadInt32();
-            Trophies = reader.ReadInt32();
-            RequiedTrophies = reader.ReadInt32();
-            WarsWon = reader.ReadInt32();
-            WarsLost = reader.ReadInt32();
-            WarsDraw = reader.ReadInt32();
+            base.ReadPacket(reader);
+
             Unknown5 = reader.ReadInt32();
             Unknown6543 = reader.ReadByte();
             Unknown3214 = reader.ReadByte();
@@ -110,7 +88,7 @@ namespace CoCSharp.Networking.Packets
             }
         }
 
-        public void WritePacket(PacketWriter writer)
+        public override void WritePacket(PacketWriter writer)
         {
             writer.WriteInt64(ClanID);
             writer.WriteString(ClanName);
