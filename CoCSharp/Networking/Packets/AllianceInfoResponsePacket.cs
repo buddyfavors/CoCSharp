@@ -6,20 +6,21 @@ namespace CoCSharp.Networking.Packets
     {
         public ushort ID { get { return 0x5EED; } }
 
-        internal long ClanID;
-        internal string ClanName;
-        internal int MembersCount;
-        internal int TotalPoints;
-        internal int RequiedTrophies;
-        internal int WarsWon;
-        internal int Level;
-        internal WarFrequencies WarFrequency;
-        internal ClanTypes ClanType;
-        internal ushort ClanLocation;
-        internal int ClanPerksPoints;
-        internal string Description;
-        internal List<AllianceMemberInfo> Members;
+        public long ClanID;
+        public string ClanName;
+        public int MembersCount;
+        public int TotalPoints;
+        public int RequiedTrophies;
+        public int WarsWon;
+        public int Level;
+        public WarFrequencies WarFrequency;
+        public ClanTypes ClanType;
+        public string ClanLocation;
+        public int ClanPerksPoints;
+        public string Description;
+        public List<AllianceMemberInfo> Members;
         internal byte LegacyMembersCount;
+        internal ushort ClanLocationValue;
         internal int Unknown3;
         internal int Unknown4;
         internal int Unknown5;
@@ -39,6 +40,11 @@ namespace CoCSharp.Networking.Packets
         internal byte Unknown4657;
         internal byte Unknown8974;
         internal byte Unknown3217;
+
+        private Dictionary<ushort, string> ClanLocations = new Dictionary<ushort, string>()
+        {
+            //{ 234, "" }
+        };
 
         public void ReadPacket(PacketReader reader)
         {
@@ -65,7 +71,8 @@ namespace CoCSharp.Networking.Packets
             WarFrequency = (WarFrequencies)reader.ReadByte();
             Unknown5167 = reader.ReadByte();
             Unknown3217 = reader.ReadByte();
-            ClanLocation = reader.ReadUInt16();
+            ClanLocationValue = reader.ReadUInt16();
+            ClanLocations.TryGetValue(ClanLocationValue, out ClanLocation);
             ClanPerksPoints = reader.ReadInt32();
             Level = reader.ReadInt32();
             Description = reader.ReadString();
